@@ -14,10 +14,17 @@ class CSVReaderService:
         return data
 
     @staticmethod
-    def save_brain_quantification_from_csv_data(csv_data):
+    def save_brain_quantification_from_csv_data(
+            csv_data,
+            stage,
+            slice_thickness,
+            zone,
+            sub_zone,
+    ):
         for index_row in range(len(csv_data[0])):
             if index_row == 0:
                 continue
+            brain_name = csv_data[0][index_row]
             ki_pos = csv_data[1][index_row]
             ki_neg = csv_data[2][index_row]
             area = csv_data[3][index_row]
@@ -25,6 +32,9 @@ class CSVReaderService:
                 ki_pos=ki_pos,
                 ki_neg=ki_neg,
                 area=area,
-                zone='Cortex',
-                sub_zone='Empty'
+                zone=zone,
+                sub_zone=sub_zone,
+                brain_name=brain_name,
+                slice_thickness=slice_thickness,
+                stage=stage
             )

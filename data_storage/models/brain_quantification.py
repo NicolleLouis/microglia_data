@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
 from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.brain_subzone import BrainSubZone
+from data_storage.enums.stage import Stage
 
 
 class BrainQuantification(models.Model):
@@ -29,6 +29,18 @@ class BrainQuantification(models.Model):
         default=BrainSubZone.Empty
     )
     area = models.FloatField(
+        blank=True,
+        null=True
+    )
+    brain_name = models.CharField(
+        max_length=20,
+        default=""
+    )
+    stage = models.CharField(
+        max_length=20,
+        choices=Stage.choices()
+    )
+    slice_thickness = models.IntegerField(
         blank=True,
         null=True
     )
