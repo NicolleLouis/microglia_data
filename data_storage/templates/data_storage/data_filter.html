@@ -7,7 +7,9 @@
     <h2>Choose your data filters</h2>
     <form action="/data_storage/data_filter" method="post">
         {% csrf_token %}
-        {{ form }}
+        Stage: {{ form.stage }}<br><br>
+        Zone: {{ form.zone }}<br><br>
+        Subzone: {{ form.sub_zone }}<br><br>
         <input type="submit" value="Submit">
     </form>
 {% endblock content %}

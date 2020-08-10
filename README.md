@@ -9,6 +9,6 @@ python manage.py runserver
 ```
 
 # IDEAS
+* Calculs
 * Add a field time_added to delete last errors
 * Appeler le csv par le nom de stage et zone
-* Calculs

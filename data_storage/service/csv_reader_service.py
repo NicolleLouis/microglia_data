@@ -1,6 +1,7 @@
 import csv
 
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
+from data_storage.service.brain_quantification import BrainQuantificationService
 
 
 class CSVReaderService:
@@ -28,7 +29,7 @@ class CSVReaderService:
             ki_pos = csv_data[1][index_row]
             ki_neg = csv_data[2][index_row]
             area = csv_data[3][index_row]
-            BrainQuantificationRepository.save_brain_quantification(
+            brain_quantification = BrainQuantificationRepository.save_brain_quantification(
                 ki_pos=ki_pos,
                 ki_neg=ki_neg,
                 area=area,
@@ -38,3 +39,4 @@ class CSVReaderService:
                 slice_thickness=slice_thickness,
                 stage=stage
             )
+            BrainQuantificationService.compute_calculated_values(brain_quantification)

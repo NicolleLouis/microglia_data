@@ -15,7 +15,12 @@ csv_order = [
     "brain_name",
     "stage",
     "slice_thickness",
+    "total",
+    "percent_ki_67",
+    "density",
+    "density_ki67",
 ]
+
 
 class BrainQuantification(models.Model):
     id = models.AutoField(
@@ -51,6 +56,22 @@ class BrainQuantification(models.Model):
         choices=Stage.choices()
     )
     slice_thickness = models.IntegerField(
+        blank=True,
+        null=True
+    )
+    total = models.IntegerField(
+        blank=True,
+        null=True
+    )
+    percent_ki_67 = models.FloatField(
+        blank=True,
+        null=True
+    )
+    density = models.FloatField(
+        blank=True,
+        null=True
+    )
+    density_ki67 = models.FloatField(
         blank=True,
         null=True
     )

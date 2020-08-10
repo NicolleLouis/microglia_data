@@ -24,6 +24,7 @@ class BrainQuantificationRepository:
             slice_thickness=slice_thickness,
         )
         brain_quantification.save()
+        return brain_quantification
 
     @staticmethod
     def get_brain_quantification(
