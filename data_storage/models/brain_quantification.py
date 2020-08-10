@@ -28,7 +28,7 @@ class BrainQuantification(models.Model):
         choices=BrainSubZone.choices(),
         default=BrainSubZone.Empty
     )
-    Area = models.FloatField(
+    area = models.FloatField(
         blank=True,
         null=True
     )
