@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class BrainSubZone(Enum):
-    Empty = ''
+    Empty = 'Empty'
     MZ = 'MZ'
     II_III = 'II_III'
     IV = 'IV'

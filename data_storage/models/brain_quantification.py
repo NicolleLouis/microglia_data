@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
-
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
 
 from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.brain_subzone import BrainSubZone
@@ -33,7 +34,14 @@ class BrainQuantification(models.Model):
     )
 
 
-class BrainQuantificationAdmin(admin.ModelAdmin):
+class BrainQuantificationResource(resources.ModelResource):
+    class Meta:
+        model = BrainQuantification
+
+
+class BrainQuantificationAdmin(ImportExportModelAdmin):
+    resource_class = BrainQuantificationResource
+
     list_display = (
         "zone",
         "sub_zone",
