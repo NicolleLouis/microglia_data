@@ -24,3 +24,18 @@ class BrainQuantificationRepository:
             slice_thickness=slice_thickness,
         )
         brain_quantification.save()
+
+    @staticmethod
+    def get_brain_quantification(
+            stage,
+            zone,
+            sub_zone,
+    ):
+        print(stage)
+        print(zone)
+        print(sub_zone)
+        return BrainQuantification.objects.all()\
+            .filter(stage=stage)\
+            .filter(sub_zone=sub_zone)\
+            .filter(zone=zone)
+

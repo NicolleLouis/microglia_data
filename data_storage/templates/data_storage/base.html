@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+            {{ page_title|default:"Untitled Page" }}
+        {% endblock title %}
+    </title>
+    {% block javascript %}
+    {% endblock %}
+</head>
+
+<body>
+{% block content %}
+    <p>Placeholder text in base template. Replace with page content.</p>
+{% endblock content %}
+</body>
+</html>
