@@ -29,18 +29,12 @@ class BrainQuantificationImport(models.Model):
         max_length=12,
         choices=BrainZone.choices(),
     )
-    sub_zone = models.CharField(
-        max_length=12,
-        choices=BrainSubZone.choices(),
-        default=BrainSubZone.Empty
-    )
 
 
 class BrainQuantificationImportAdmin(admin.ModelAdmin):
     list_display = (
         "stage",
         "zone",
-        "sub_zone",
     )
 
 
@@ -52,7 +46,7 @@ def save_csv(sender, instance, **kwargs):
         stage=instance.stage,
         slice_thickness=instance.slice_thickness,
         zone=instance.zone,
-        sub_zone=instance.sub_zone,
+        sub_zone=BrainSubZone.Empty.value,
     )
     FileService.delete_all_static_files()
 
