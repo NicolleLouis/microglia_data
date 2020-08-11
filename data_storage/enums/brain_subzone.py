@@ -16,3 +16,7 @@ class BrainSubZone(Enum):
     @classmethod
     def get_all_subzone(cls):
         return [key.value for key in cls]
+
+    @classmethod
+    def get_all_non_empty_subzone(cls):
+        return [key.value for key in cls if key != BrainSubZone.Empty]

@@ -41,12 +41,20 @@ class BrainQuantificationImportAdmin(admin.ModelAdmin):
 @receiver(post_save, sender=BrainQuantificationImport)
 def save_csv(sender, instance, **kwargs):
     data = CSVReaderService.get_data_from_csv(instance.csv_file)
-    CSVReaderService.save_brain_quantification_from_csv_data_generic_zone(
-        csv_data=data,
-        stage=instance.stage,
-        slice_thickness=instance.slice_thickness,
-        zone=instance.zone,
-        sub_zone=BrainSubZone.Empty.value,
-    )
+    if instance.zone == BrainZone.Cortex.value:
+        CSVReaderService.save_brain_quantification_from_cortex_csv_data(
+            csv_data=data,
+            stage=instance.stage,
+            slice_thickness=instance.slice_thickness,
+            zone=instance.zone
+        )
+    else:
+        CSVReaderService.save_brain_quantification_from_csv_data_generic_zone(
+            csv_data=data,
+            stage=instance.stage,
+            slice_thickness=instance.slice_thickness,
+            zone=instance.zone,
+            sub_zone=BrainSubZone.Empty.value,
+        )
     FileService.delete_all_static_files()
 

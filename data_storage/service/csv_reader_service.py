@@ -1,7 +1,9 @@
 import csv
 
+from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
 from data_storage.service.brain_quantification import BrainQuantificationService
+from data_storage.service.clean_data import CleanDataService
 
 
 class CSVReaderService:
@@ -13,6 +15,39 @@ class CSVReaderService:
             for row in csv_reader:
                 data.append(row)
         return data
+
+    @staticmethod
+    def save_brain_quantification_from_cortex_csv_data(
+            csv_data,
+            stage,
+            slice_thickness,
+            zone,
+    ):
+        sub_zone_order = {
+            BrainSubZone.MZ.value: 0,
+            BrainSubZone.II_III.value: 1,
+            BrainSubZone.IV.value: 2,
+            BrainSubZone.V.value: 3,
+            BrainSubZone.VI.value: 4,
+        }
+        for index_row in range(len(csv_data[0])):
+            if index_row == 0:
+                continue
+            for sub_zone in BrainSubZone.get_all_non_empty_subzone():
+                brain_name = csv_data[0][index_row]
+                ki_pos = csv_data[2 + sub_zone_order[sub_zone]][index_row]
+                ki_neg = csv_data[8 + sub_zone_order[sub_zone]][index_row]
+                area = csv_data[14 + sub_zone_order[sub_zone]][index_row]
+                BrainQuantificationRepository.save_brain_quantification(
+                    ki_pos=ki_pos,
+                    ki_neg=ki_neg,
+                    area=CleanDataService.clean_float_string(area),
+                    zone=zone,
+                    sub_zone=sub_zone,
+                    brain_name=brain_name,
+                    slice_thickness=slice_thickness,
+                    stage=stage
+                )
 
     @staticmethod
     def save_brain_quantification_from_csv_data_generic_zone(

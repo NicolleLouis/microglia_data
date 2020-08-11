@@ -96,6 +96,7 @@ class BrainQuantificationAdmin(ImportExportModelAdmin):
     resource_class = BrainQuantificationResource
 
     list_display = (
+        'brain_name',
         "stage",
         "zone",
         "sub_zone",
