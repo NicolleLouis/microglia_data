@@ -1,0 +1,19 @@
+{% extends 'data_storage/base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <h2>Choose your data filters</h2>
+    <form action="/data_storage/attribute_filter" method="post">
+        {% csrf_token %}
+        Attribute: {{ form.attribute }}<br><br>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+function my_function() {}
+</script>
+{% endblock %}

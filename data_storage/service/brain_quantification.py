@@ -1,4 +1,12 @@
+from data_storage.models.brain_quantification import BrainQuantification
+
+
 class BrainQuantificationService:
+    @staticmethod
+    def get_all_attributes():
+        all_fields = BrainQuantification._meta.fields
+        return [(field.name, field.name) for field in all_fields]
+
     @staticmethod
     def compute_calculated_values(brain_quantification):
         BrainQuantificationService.compute_total(brain_quantification)

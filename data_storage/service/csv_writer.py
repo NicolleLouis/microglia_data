@@ -1,10 +1,37 @@
 import csv
 
+from data_storage.enums.brain_zone import BrainZone
+from data_storage.enums.stage import Stage
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
 from data_storage.models.brain_quantification import csv_order
 
 
 class CSVWriter:
+    @staticmethod
+    def create_csv_with_attribute_filter(
+            response,
+            attribute,
+    ):
+        writer = csv.writer(response, delimiter=";")
+        for zone in BrainZone.get_all_zone():
+            writer.writerow([zone])
+            for stage in Stage.get_all_stage():
+                brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone(
+                    stage=stage,
+                    zone=zone
+                )
+                results = [stage]
+                results.extend(
+                    list(
+                        map(
+                            lambda brain_quantification: brain_quantification.__getattribute__(attribute),
+                            brain_quantifications
+                        )
+                    )
+                )
+                writer.writerow(results)
+            writer.writerow([])
+
     @staticmethod
     def create_csv_with_data_filters(
             response,
@@ -12,10 +39,10 @@ class CSVWriter:
             zone,
             sub_zone,
     ):
-        brain_quantifications = BrainQuantificationRepository.get_brain_quantification(
+        brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone_subzone(
             stage=stage,
-            sub_zone=sub_zone,
-            zone=zone
+            zone=zone,
+            sub_zone=sub_zone
         )
 
         writer = csv.writer(response, delimiter=";")
