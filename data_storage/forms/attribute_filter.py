@@ -1,9 +1,9 @@
 from django import forms
 
-from data_storage.service.brain_quantification import BrainQuantificationService
+from data_storage.models.brain_quantification import BrainQuantification
 
 
 class AttributeFilterForm(forms.Form):
     attribute = forms.ChoiceField(
-        choices=BrainQuantificationService.get_all_attributes()
+        choices=BrainQuantification.get_all_attributes()
     )

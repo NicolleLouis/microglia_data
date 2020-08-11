@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -76,6 +78,11 @@ class BrainQuantification(models.Model):
         null=True
     )
 
+    @classmethod
+    def get_all_attributes(cls):
+        all_fields = cls._meta.fields
+        return [(field.name, field.name) for field in all_fields]
+
     def to_csv(self):
         return list(map(lambda field_name: str(self.__getattribute__(field_name)), csv_order))
 
@@ -95,3 +102,9 @@ class BrainQuantificationAdmin(ImportExportModelAdmin):
         "ki_pos",
         "ki_neg"
     )
+
+
+@receiver(pre_save, sender=BrainQuantification)
+def compute_calculated_values(sender, instance, **kwargs):
+    from data_storage.service.brain_quantification import BrainQuantificationService
+    BrainQuantificationService.compute_calculated_values(instance)

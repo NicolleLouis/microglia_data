@@ -15,7 +15,7 @@ class CSVReaderService:
         return data
 
     @staticmethod
-    def save_brain_quantification_from_csv_data(
+    def save_brain_quantification_from_csv_data_generic_zone(
             csv_data,
             stage,
             slice_thickness,
@@ -29,7 +29,7 @@ class CSVReaderService:
             ki_pos = csv_data[1][index_row]
             ki_neg = csv_data[2][index_row]
             area = csv_data[3][index_row]
-            brain_quantification = BrainQuantificationRepository.save_brain_quantification(
+            BrainQuantificationRepository.save_brain_quantification(
                 ki_pos=ki_pos,
                 ki_neg=ki_neg,
                 area=area,
@@ -39,4 +39,3 @@ class CSVReaderService:
                 slice_thickness=slice_thickness,
                 stage=stage
             )
-            BrainQuantificationService.compute_calculated_values(brain_quantification)
