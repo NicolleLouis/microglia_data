@@ -1,5 +1,6 @@
 import csv
 
+from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.stage import Stage
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
@@ -16,9 +17,10 @@ class CSVWriter:
         for zone in BrainZone.get_all_zone():
             writer.writerow([zone])
             for stage in Stage.get_all_stage():
-                brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone(
+                brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone_subzone(
                     stage=stage,
-                    zone=zone
+                    zone=zone,
+                    sub_zone=BrainSubZone.Empty.value
                 )
                 results = [stage]
                 results.extend(

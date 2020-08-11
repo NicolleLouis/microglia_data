@@ -1,3 +1,4 @@
+from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.models.brain_quantification import BrainQuantification
 
 
@@ -37,11 +38,3 @@ class BrainQuantificationRepository:
             .filter(sub_zone=sub_zone)\
             .filter(zone=zone)
 
-    @staticmethod
-    def get_brain_quantification_for_stage_zone(
-            stage,
-            zone
-    ):
-        return BrainQuantification.objects.all() \
-            .filter(stage=stage) \
-            .filter(zone=zone)
