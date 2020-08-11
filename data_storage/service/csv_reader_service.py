@@ -33,8 +33,8 @@ class CSVReaderService:
         for index_row in range(len(csv_data[0])):
             if index_row == 0:
                 continue
+            brain_name = csv_data[0][index_row]
             for sub_zone in BrainSubZone.get_all_non_empty_subzone():
-                brain_name = csv_data[0][index_row]
                 ki_pos = csv_data[2 + sub_zone_order[sub_zone]][index_row]
                 ki_neg = csv_data[8 + sub_zone_order[sub_zone]][index_row]
                 area = csv_data[14 + sub_zone_order[sub_zone]][index_row]
@@ -48,6 +48,25 @@ class CSVReaderService:
                     slice_thickness=slice_thickness,
                     stage=stage
                 )
+            ki_pos_total = 0
+            for ki_pos in csv_data[2:7]:
+                ki_pos_total += int(ki_pos[index_row])
+            ki_neg_total = 0
+            for ki_neg in csv_data[8:13]:
+                ki_neg_total += int(ki_neg[index_row])
+            area_total = 0
+            for area in csv_data[14:19]:
+                area_total += float(CleanDataService.clean_float_string(area[index_row]))
+            BrainQuantificationRepository.save_brain_quantification(
+                ki_pos=ki_pos_total,
+                ki_neg=ki_neg_total,
+                area=area_total,
+                zone=zone,
+                sub_zone=BrainSubZone.Empty.value,
+                brain_name=brain_name,
+                slice_thickness=slice_thickness,
+                stage=stage
+            )
 
     @staticmethod
     def save_brain_quantification_from_csv_data_generic_zone(
