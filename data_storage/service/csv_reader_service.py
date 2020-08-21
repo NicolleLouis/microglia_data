@@ -2,7 +2,6 @@ import csv
 
 from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
-from data_storage.service.brain_quantification import BrainQuantificationService
 from data_storage.service.clean_data import CleanDataService
 
 
