@@ -9,7 +9,7 @@ from data_storage.models.brain_quantification import csv_order
 
 class CSVWriter:
     @staticmethod
-    def create_csv_with_attribute_filter(
+    def create_csv_with_attribute_export(
             response,
             attribute,
     ):

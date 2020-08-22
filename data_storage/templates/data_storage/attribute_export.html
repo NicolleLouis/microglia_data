@@ -5,7 +5,7 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <h2>Choose your data filters</h2>
-    <form action="/data_storage/attribute_filter" method="post">
+    <form action="/data_storage/attribute_export" method="post">
         {% csrf_token %}
         Attribute: {{ form.attribute }}<br><br>
         <input type="submit" value="Submit">
