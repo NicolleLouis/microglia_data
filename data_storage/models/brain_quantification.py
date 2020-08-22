@@ -32,7 +32,15 @@ class BrainQuantification(models.Model):
         blank=True,
         null=True
     )
+    ki_pos_updated = models.FloatField(
+        blank=True,
+        null=True
+    )
     ki_neg = models.IntegerField(
+        blank=True,
+        null=True
+    )
+    ki_neg_updated = models.FloatField(
         blank=True,
         null=True
     )
@@ -62,7 +70,7 @@ class BrainQuantification(models.Model):
         null=True,
         default=60
     )
-    total = models.IntegerField(
+    total = models.FloatField(
         blank=True,
         null=True
     )
