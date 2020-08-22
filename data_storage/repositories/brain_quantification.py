@@ -12,7 +12,8 @@ class BrainQuantificationRepository:
             sub_zone,
             brain_name,
             slice_thickness,
-            stage
+            stage,
+            sex,
     ):
         brain_quantification = BrainQuantification(
             ki_pos=ki_pos,
@@ -23,6 +24,7 @@ class BrainQuantificationRepository:
             brain_name=brain_name,
             stage=stage,
             slice_thickness=slice_thickness,
+            sex=sex
         )
         brain_quantification.save()
         return brain_quantification

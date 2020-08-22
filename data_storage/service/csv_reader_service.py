@@ -1,6 +1,7 @@
 import csv
 
 from data_storage.enums.brain_subzone import BrainSubZone
+from data_storage.enums.sex import Sex
 from data_storage.repositories.brain_quantification import BrainQuantificationRepository
 from data_storage.service.clean_data import CleanDataService
 
@@ -73,15 +74,16 @@ class CSVReaderService:
             stage,
             slice_thickness,
             zone,
-            sub_zone,
     ):
+        sub_zone = BrainSubZone.Empty.value
         for index_row in range(len(csv_data[0])):
             if index_row == 0:
                 continue
             brain_name = csv_data[0][index_row]
-            ki_pos = csv_data[1][index_row]
-            ki_neg = csv_data[2][index_row]
-            area = csv_data[3][index_row]
+            sex = CSVReaderService.detect_sex(csv_data[1][index_row])
+            ki_pos = csv_data[2][index_row]
+            ki_neg = csv_data[3][index_row]
+            area = csv_data[4][index_row]
             BrainQuantificationRepository.save_brain_quantification(
                 ki_pos=ki_pos,
                 ki_neg=ki_neg,
@@ -90,5 +92,14 @@ class CSVReaderService:
                 sub_zone=sub_zone,
                 brain_name=brain_name,
                 slice_thickness=slice_thickness,
-                stage=stage
+                stage=stage,
+                sex=sex,
             )
+
+    @staticmethod
+    def detect_sex(sex_as_string):
+        if sex_as_string == 'M':
+            return Sex.Male.value
+        if sex_as_string == 'F':
+            return Sex.Female.value
+        return Sex.Unknown.value

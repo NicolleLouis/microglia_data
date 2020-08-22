@@ -55,7 +55,6 @@ def save_csv(sender, instance, **kwargs):
             stage=instance.stage,
             slice_thickness=instance.slice_thickness,
             zone=instance.zone,
-            sub_zone=BrainSubZone.Empty.value,
         )
     FileService.delete_all_static_files()
 

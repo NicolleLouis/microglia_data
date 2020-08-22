@@ -7,6 +7,7 @@ from import_export.admin import ImportExportModelAdmin
 from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.enums.stage import Stage
+from data_storage.enums.sex import Sex
 
 csv_order = [
     "ki_pos",
@@ -65,6 +66,11 @@ class BrainQuantification(models.Model):
         max_length=20,
         choices=Stage.choices()
     )
+    sex = models.CharField(
+        max_length=20,
+        choices=Sex.choices(),
+        default=Sex.Unknown
+    )
     slice_thickness = models.IntegerField(
         blank=True,
         null=True,
@@ -109,8 +115,7 @@ class BrainQuantificationAdmin(ImportExportModelAdmin):
         "stage",
         "zone",
         "sub_zone",
-        "ki_pos",
-        "ki_neg"
+        "sex",
     )
 
 
