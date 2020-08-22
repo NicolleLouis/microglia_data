@@ -10,7 +10,9 @@ from data_storage.enums.stage import Stage
 from data_storage.enums.sex import Sex
 
 csv_order = [
+    "ki_pos_updated",
     "ki_pos",
+    "ki_neg_updated",
     "ki_neg",
     "zone",
     "sub_zone",
@@ -22,6 +24,7 @@ csv_order = [
     "percent_ki_67",
     "density",
     "density_ki67",
+    "sex",
 ]
 
 
