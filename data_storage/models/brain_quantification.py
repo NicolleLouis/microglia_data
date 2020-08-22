@@ -59,7 +59,8 @@ class BrainQuantification(models.Model):
     )
     slice_thickness = models.IntegerField(
         blank=True,
-        null=True
+        null=True,
+        default=60
     )
     total = models.IntegerField(
         blank=True,

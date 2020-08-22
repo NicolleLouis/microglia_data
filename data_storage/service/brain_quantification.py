@@ -20,7 +20,11 @@ class BrainQuantificationService:
 
     @staticmethod
     def compute_density(brain_quantification):
-        brain_quantification.density = 10e5*int(brain_quantification.total)/float(brain_quantification.area)
+        brain_quantification.density = 60*\
+                                       10e5*\
+                                       int(brain_quantification.total)/\
+                                       float(brain_quantification.area)/\
+                                       brain_quantification.slice_thickness
         return brain_quantification
 
     @staticmethod

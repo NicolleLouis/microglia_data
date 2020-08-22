@@ -23,7 +23,8 @@ class BrainQuantificationImport(models.Model):
     )
     slice_thickness = models.IntegerField(
         blank=True,
-        null=True
+        null=True,
+        default=60,
     )
     zone = models.CharField(
         max_length=12,
