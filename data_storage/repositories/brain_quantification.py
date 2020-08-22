@@ -34,9 +34,12 @@ class BrainQuantificationRepository:
             stage,
             zone,
             sub_zone,
+            sex=None
     ):
-        return BrainQuantification.objects.all()\
+        brain_quantifications = BrainQuantification.objects.all()\
             .filter(stage=stage)\
             .filter(sub_zone=sub_zone)\
             .filter(zone=zone)
-
+        if sex is not None:
+            brain_quantifications = brain_quantifications.filter(sex=sex)
+        return brain_quantifications

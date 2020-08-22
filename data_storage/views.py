@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from data_storage.forms.attribute_export import AttributeFilterForm
+from data_storage.enums.sex import Sex
+from data_storage.forms.attribute_export import AttributeExportForm
+from data_storage.forms.attribute_sex_filter import AttributeSexFilterForm
 from data_storage.forms.data_filter import DataFilterForm
 from data_storage.service.csv_writer import CSVWriter
 
@@ -46,7 +48,7 @@ def data_filter(request):
 
 def attribute_export(request):
     if request.method == 'POST':
-        form = AttributeFilterForm(request.POST)
+        form = AttributeExportForm(request.POST)
         if form.is_valid():
             response = HttpResponse(content_type='text/csv')
             attribute = form.cleaned_data["attribute"]
@@ -57,7 +59,7 @@ def attribute_export(request):
             )
             return response
     else:
-        form = AttributeFilterForm()
+        form = AttributeExportForm()
 
     context = {
         "title": "Attribute Export",
@@ -69,18 +71,23 @@ def attribute_export(request):
 
 def attribute_sex_filter(request):
     if request.method == 'POST':
-        form = AttributeFilterForm(request.POST)
+        form = AttributeSexFilterForm(request.POST)
         if form.is_valid():
             response = HttpResponse(content_type='text/csv')
             attribute = form.cleaned_data["attribute"]
+            sex = form.cleaned_data["sex"]
             response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(attribute)
-            CSVWriter.create_csv_with_attribute_export(
-                response=response,
-                attribute=attribute
-            )
+            if sex in [Sex.Male.value, Sex.Female.value]:
+                CSVWriter.create_csv_with_attribute_export_and_sex_filter(
+                    response=response,
+                    attribute=attribute,
+                    sex=sex
+                )
+            else:
+                print("c'est pas bon gros con")
             return response
     else:
-        form = AttributeFilterForm()
+        form = AttributeSexFilterForm()
 
     context = {
         "title": "Attribute Sex Filter",
