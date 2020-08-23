@@ -1,3 +1,6 @@
+import statistics
+
+
 class BrainQuantificationService:
     @staticmethod
     def compute_average_attribute(
@@ -18,7 +21,7 @@ class BrainQuantificationService:
                 isinstance(attribute_list[0], float)
         ):
             raise SystemError("I can't compute average on this type of field")
-        return 1
+        return statistics.mean(attribute_list)
 
     @staticmethod
     def compute_calculated_values(brain_quantification):

@@ -89,7 +89,7 @@ class CSVWriter:
             attribute,
     ):
         writer = csv.writer(response, delimiter=";")
-        writer.writerow(["", "Average Male", "Averager Female", "Male/Female"])
+        writer.writerow(["", "Average Male", "Average Female", "Male/Female"])
         for zone in BrainZone.get_all_zone():
             writer.writerow([zone])
             for stage in Stage.get_all_stage():
