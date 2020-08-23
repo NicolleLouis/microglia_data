@@ -15,6 +15,7 @@ class CSVWriter:
     def create_csv_with_attribute_export(
             response,
             attribute,
+            sex=None
     ):
         writer = csv.writer(response, delimiter=";")
         for zone in BrainZone.get_all_zone():
@@ -23,7 +24,8 @@ class CSVWriter:
                 brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone_subzone(
                     stage=stage,
                     zone=zone,
-                    sub_zone=BrainSubZone.Empty.value
+                    sub_zone=BrainSubZone.Empty.value,
+                    sex=sex
                 )
                 results = [stage]
                 results.extend(
@@ -56,34 +58,6 @@ class CSVWriter:
             writer.writerow(brain_quantification.to_csv())
 
     @staticmethod
-    def create_csv_with_attribute_export_and_sex_filter(
-            response,
-            attribute,
-            sex,
-    ):
-        writer = csv.writer(response, delimiter=";")
-        for zone in BrainZone.get_all_zone():
-            writer.writerow([zone])
-            for stage in Stage.get_all_stage():
-                brain_quantifications = BrainQuantificationRepository.get_brain_quantification_for_stage_zone_subzone(
-                    stage=stage,
-                    zone=zone,
-                    sub_zone=BrainSubZone.Empty.value,
-                    sex=sex
-                )
-                results = [stage]
-                results.extend(
-                    list(
-                        map(
-                            lambda brain_quantification: brain_quantification.__getattribute__(attribute),
-                            brain_quantifications
-                        )
-                    )
-                )
-                writer.writerow(results)
-            writer.writerow([])
-
-    @staticmethod
     def create_csv_with_attribute_sex_comparison(
             response,
             attribute,
@@ -113,7 +87,6 @@ class CSVWriter:
                     brain_quantifications=brain_quantifications_female,
                     attribute=attribute
                 )
-                # todo : write true average function
                 results = [
                     stage,
                     average_male,

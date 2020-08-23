@@ -82,7 +82,7 @@ def attribute_sex_filter(request):
                 sex
             )
             if sex in [Sex.Male.value, Sex.Female.value]:
-                CSVWriter.create_csv_with_attribute_export_and_sex_filter(
+                CSVWriter.create_csv_with_attribute_export(
                     response=response,
                     attribute=attribute,
                     sex=sex
