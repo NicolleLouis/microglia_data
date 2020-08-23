@@ -1,5 +1,26 @@
 class BrainQuantificationService:
     @staticmethod
+    def compute_average_attribute(
+            brain_quantifications,
+            attribute
+    ):
+        if len(brain_quantifications) == 0:
+            return None
+        attribute_list = [
+            getattr(
+                brain_quantification,
+                attribute
+            ) for brain_quantification in brain_quantifications
+        ]
+        if not (
+                isinstance(attribute_list[0], int)
+                or
+                isinstance(attribute_list[0], float)
+        ):
+            raise SystemError("I can't compute average on this type of field")
+        return 1
+
+    @staticmethod
     def compute_calculated_values(brain_quantification):
         brain_quantification = BrainQuantificationService.compute_ki_updated(brain_quantification)
         brain_quantification = BrainQuantificationService.compute_total(brain_quantification)

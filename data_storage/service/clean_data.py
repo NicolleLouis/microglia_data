@@ -14,3 +14,15 @@ class CleanDataService:
         if sex_as_string == 'F':
             return Sex.Female.value
         return Sex.Unknown.value
+
+    @staticmethod
+    def clean_division(numerator, denominator):
+        if denominator is None:
+            return None
+        return numerator/denominator
+
+    @staticmethod
+    def clean_none(value):
+        if value is None:
+            return ""
+        return value

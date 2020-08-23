@@ -76,7 +76,11 @@ def attribute_sex_filter(request):
             response = HttpResponse(content_type='text/csv')
             attribute = form.cleaned_data["attribute"]
             sex = form.cleaned_data["sex"]
-            response['Content-Disposition'] = 'attachment; filename="{}.csv"'.format(attribute)
+            response['Content-Disposition'] = 'attachment; filename="{}_{}.csv"'.\
+                format(
+                attribute,
+                sex
+            )
             if sex in [Sex.Male.value, Sex.Female.value]:
                 CSVWriter.create_csv_with_attribute_export_and_sex_filter(
                     response=response,
@@ -84,7 +88,10 @@ def attribute_sex_filter(request):
                     sex=sex
                 )
             else:
-                print("c'est pas bon gros con")
+                CSVWriter.create_csv_with_attribute_sex_comparison(
+                    response=response,
+                    attribute=attribute
+                )
             return response
     else:
         form = AttributeSexFilterForm()
