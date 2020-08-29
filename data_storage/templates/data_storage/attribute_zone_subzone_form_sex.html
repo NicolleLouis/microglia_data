@@ -7,9 +7,10 @@
     <h2>Choose your data filters</h2>
     <form action={{ redirection }} method="post">
         {% csrf_token %}
-        Attribute: {{ form.attribute }}<br><br>
+        <strong>Attribute: {{ form.attribute }}</strong><br><br>
         Zone: {{ form.zone }}<br><br>
         Subzone: {{ form.sub_zone }}<br><br>
+        Sex: {{ form.sex }}<br><br>
         <input type="submit" value="Submit">
     </form>
 {% endblock content %}

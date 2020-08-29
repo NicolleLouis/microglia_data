@@ -101,6 +101,12 @@ class BrainQuantification(models.Model):
         all_fields = cls._meta.fields
         return [(field.name, field.name) for field in all_fields]
 
+    @classmethod
+    def get_all_numeric_attributes(cls):
+        all_fields = cls._meta.fields
+        return [(field.name, field.name) for field in all_fields if
+                field.get_internal_type() in ["FloatField", "IntegerField"]]
+
     def to_csv(self):
         return list(map(lambda field_name: str(self.__getattribute__(field_name)), csv_order))
 

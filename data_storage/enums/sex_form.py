@@ -14,3 +14,7 @@ class SexForm(Enum):
     @classmethod
     def get_all_sex_form(cls):
         return [key.value for key in cls]
+
+    @classmethod
+    def choices_without_comparison(cls):
+        return [(key.value, key.name) for key in cls if key.name != 'SexComparison']
