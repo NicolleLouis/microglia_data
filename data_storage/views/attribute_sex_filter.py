@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from data_storage.enums.sex import Sex
+from data_storage.enums.sex_form import SexForm
 from data_storage.forms.attribute_sex_filter import AttributeSexFilterForm
 from data_storage.service.csv_writer import CSVWriter
 
@@ -13,28 +14,30 @@ def attribute_sex_filter(request):
             response = HttpResponse(content_type='text/csv')
             attribute = form.cleaned_data["attribute"]
             sex = form.cleaned_data["sex"]
-            response['Content-Disposition'] = 'attachment; filename="{}_{}.csv"'. \
+            response['Content-Disposition'] = 'attachment; filename="{}_sex_{}.csv"'. \
                 format(
                 attribute,
                 sex
             )
-            if sex in [Sex.Male.value, Sex.Female.value]:
+            if sex == SexForm.SexComparison.value:
+                CSVWriter.create_csv_with_attribute_sex_comparison(
+                    response=response,
+                    attribute=attribute
+                )
+            else:
+                if sex == SexForm.Empty.value:
+                    sex = None
                 CSVWriter.create_csv_with_attribute_export(
                     response=response,
                     attribute=attribute,
                     sex=sex
-                )
-            else:
-                CSVWriter.create_csv_with_attribute_sex_comparison(
-                    response=response,
-                    attribute=attribute
                 )
             return response
     else:
         form = AttributeSexFilterForm()
 
     context = {
-        "title": "Attribute Sex Filter",
+        "title": "Attribute Export",
         "form": form
     }
 

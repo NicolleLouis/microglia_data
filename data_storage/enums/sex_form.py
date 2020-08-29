@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class SexForm(Enum):
+    Empty = 'Empty'
     Male = 'Male'
     Female = 'Female'
     SexComparison = 'SexComparison'

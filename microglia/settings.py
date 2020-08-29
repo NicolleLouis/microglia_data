@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'data_storage',
     'import_export',
+    'microglia',
 ]
 
 MIDDLEWARE = [
