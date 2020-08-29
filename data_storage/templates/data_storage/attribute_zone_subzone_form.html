@@ -5,9 +5,9 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <h2>Choose your data filters</h2>
-    <form action="/data_storage/data_filter" method="post">
+    <form action={{ redirection }} method="post">
         {% csrf_token %}
-        Stage: {{ form.stage }}<br><br>
+        Attribute: {{ form.attribute }}<br><br>
         Zone: {{ form.zone }}<br><br>
         Subzone: {{ form.sub_zone }}<br><br>
         <input type="submit" value="Submit">
