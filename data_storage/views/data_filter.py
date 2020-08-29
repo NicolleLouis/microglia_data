@@ -10,9 +10,9 @@ def data_filter(request):
         form = DataFilterForm(request.POST)
         if form.is_valid():
             response = HttpResponse(content_type='text/csv')
-            zone = form.cleaned_data["zone"][0]
-            sub_zone = form.cleaned_data["sub_zone"][0]
-            stage = form.cleaned_data["stage"][0]
+            zone = form.cleaned_data["zone"]
+            sub_zone = form.cleaned_data["sub_zone"]
+            stage = form.cleaned_data["stage"]
             response['Content-Disposition'] = 'attachment; filename="{}/{}/{}.csv"'.format(
                 stage,
                 zone,

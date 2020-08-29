@@ -6,12 +6,12 @@ from data_storage.enums.brain_subzone import BrainSubZone
 
 
 class DataFilterForm(forms.Form):
-    stage = forms.MultipleChoiceField(
+    stage = forms.ChoiceField(
         choices=Stage.choices()
     )
-    zone = forms.MultipleChoiceField(
+    zone = forms.ChoiceField(
         choices=BrainZone.choices()
     )
-    sub_zone = forms.MultipleChoiceField(
+    sub_zone = forms.ChoiceField(
         choices=BrainSubZone.choices()
     )
