@@ -3,13 +3,13 @@ from django.shortcuts import render
 
 from data_storage.enums.sex import Sex
 from data_storage.enums.sex_form import SexForm
-from data_storage.forms.attribute_sex_filter import AttributeSexFilterForm
+from data_storage.forms.attribute_sex_form import AttributeSexForm
 from data_storage.service.csv_writer import CSVWriter
 
 
 def attribute_sex_filter(request):
     if request.method == 'POST':
-        form = AttributeSexFilterForm(request.POST)
+        form = AttributeSexForm(request.POST)
         if form.is_valid():
             response = HttpResponse(content_type='text/csv')
             attribute = form.cleaned_data["attribute"]
@@ -34,7 +34,7 @@ def attribute_sex_filter(request):
                 )
             return response
     else:
-        form = AttributeSexFilterForm()
+        form = AttributeSexForm()
 
     context = {
         "title": "Attribute Export",

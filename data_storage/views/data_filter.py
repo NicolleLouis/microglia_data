@@ -1,13 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from data_storage.forms.data_filter import DataFilterForm
+from data_storage.forms.stage_zone_subzone_form import StageZoneSubzoneForm
 from data_storage.service.csv_writer import CSVWriter
 
 
 def data_filter(request):
     if request.method == 'POST':
-        form = DataFilterForm(request.POST)
+        form = StageZoneSubzoneForm(request.POST)
         if form.is_valid():
             response = HttpResponse(content_type='text/csv')
             zone = form.cleaned_data["zone"]
@@ -26,7 +26,7 @@ def data_filter(request):
             )
             return response
     else:
-        form = DataFilterForm()
+        form = StageZoneSubzoneForm()
 
     context = {
         "title": "Data Filters",

@@ -5,7 +5,7 @@ from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.brain_subzone import BrainSubZone
 
 
-class DataFilterForm(forms.Form):
+class StageZoneSubzoneForm(forms.Form):
     stage = forms.ChoiceField(
         choices=Stage.choices()
     )
