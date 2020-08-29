@@ -22,7 +22,13 @@ class CleanDataService:
         return numerator/denominator
 
     @staticmethod
-    def clean_none(value):
+    def clean_none_string(value):
         if value is None:
             return ""
+        return value
+
+    @staticmethod
+    def clean_none_int(value):
+        if value is None:
+            return 0
         return value

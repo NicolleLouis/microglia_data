@@ -1,4 +1,3 @@
-from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.models.brain_quantification import BrainQuantification
 
 

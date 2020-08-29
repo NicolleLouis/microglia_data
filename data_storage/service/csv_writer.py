@@ -91,7 +91,7 @@ class CSVWriter:
                     stage,
                     average_male,
                     average_female,
-                    CleanDataService.clean_none(CleanDataService.clean_division(average_male, average_female))
+                    CleanDataService.clean_none_string(CleanDataService.clean_division(average_male, average_female))
                 ]
                 writer.writerow(results)
             writer.writerow([])
