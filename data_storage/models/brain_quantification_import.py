@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from data_storage.enums.brain_subzone import BrainSubZone
 from data_storage.enums.brain_zone import BrainZone
 from data_storage.enums.stage import Stage
 from data_storage.service.csv_reader_service import CSVReaderService

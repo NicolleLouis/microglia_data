@@ -6,6 +6,7 @@ class BrainQuantificationRepository:
     def save_brain_quantification(
             ki_pos,
             ki_neg,
+            area_measure,
             area,
             zone,
             sub_zone,
@@ -17,6 +18,7 @@ class BrainQuantificationRepository:
         brain_quantification = BrainQuantification(
             ki_pos=ki_pos,
             ki_neg=ki_neg,
+            area_measure=area_measure,
             area=area,
             zone=zone,
             sub_zone=sub_zone,

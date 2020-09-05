@@ -37,11 +37,12 @@ class CSVReaderService:
             for sub_zone in BrainSubZone.get_all_non_empty_subzone():
                 ki_pos = csv_data[3 + sub_zone_order[sub_zone]][index_row]
                 ki_neg = csv_data[9 + sub_zone_order[sub_zone]][index_row]
-                area = csv_data[15 + sub_zone_order[sub_zone]][index_row]
+                area_measure = csv_data[15 + sub_zone_order[sub_zone]][index_row]
                 BrainQuantificationRepository.save_brain_quantification(
                     ki_pos=ki_pos,
                     ki_neg=ki_neg,
-                    area=CleanDataService.clean_float_string(area),
+                    area_measure=CleanDataService.clean_float_string(area_measure),
+                    area=CleanDataService.clean_float_string(area_measure),
                     zone=zone,
                     sub_zone=sub_zone,
                     brain_name=brain_name,
@@ -56,12 +57,12 @@ class CSVReaderService:
             for ki_neg in csv_data[9:14]:
                 ki_neg_total += int(ki_neg[index_row])
             area_total = 0
-            for area in csv_data[15:20]:
-                area_total += float(CleanDataService.clean_float_string(area[index_row]))
+            for area_measure in csv_data[15:20]:
+                area_total += float(CleanDataService.clean_float_string(area_measure[index_row]))
             BrainQuantificationRepository.save_brain_quantification(
                 ki_pos=ki_pos_total,
                 ki_neg=ki_neg_total,
-                area=area_total,
+                area_measure=area_total,
                 zone=zone,
                 sub_zone=BrainSubZone.Empty.value,
                 brain_name=brain_name,
@@ -85,10 +86,12 @@ class CSVReaderService:
             sex = CleanDataService.detect_sex(csv_data[1][index_row])
             ki_pos = csv_data[2][index_row]
             ki_neg = csv_data[3][index_row]
-            area = csv_data[4][index_row]
+            area_measure = csv_data[4][index_row]
+            area = csv_data[5][index_row]
             BrainQuantificationRepository.save_brain_quantification(
                 ki_pos=ki_pos,
                 ki_neg=ki_neg,
+                area_measure=area_measure,
                 area=area,
                 zone=zone,
                 sub_zone=sub_zone,

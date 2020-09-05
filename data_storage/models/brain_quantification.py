@@ -16,6 +16,7 @@ csv_order = [
     "ki_neg",
     "zone",
     "sub_zone",
+    "area_measure",
     "area",
     "brain_name",
     "stage",
@@ -56,6 +57,10 @@ class BrainQuantification(models.Model):
         max_length=12,
         choices=BrainSubZone.choices(),
         default=BrainSubZone.Empty
+    )
+    area_measure = models.FloatField(
+        blank=True,
+        null=True
     )
     area = models.FloatField(
         blank=True,
