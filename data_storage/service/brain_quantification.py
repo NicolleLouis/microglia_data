@@ -61,12 +61,12 @@ class BrainQuantificationService:
     def compute_density(brain_quantification):
         brain_quantification.density = 10e5 * \
                                        float(brain_quantification.total) / \
-                                       float(brain_quantification.area_measure)
+                                       float(brain_quantification.area)
         return brain_quantification
 
     @staticmethod
     def compute_density_ki67(brain_quantification):
         brain_quantification.density_ki67 = 10e5 * \
                                             float(brain_quantification.ki_pos_updated) / \
-                                            float(brain_quantification.area_measure)
+                                            float(brain_quantification.area)
         return brain_quantification
