@@ -69,6 +69,7 @@ class CSVReaderService:
                 slice_thickness=slice_thickness,
                 stage=stage,
                 sex=sex,
+                area=area_total,
             )
 
     @staticmethod
